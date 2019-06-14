@@ -7,6 +7,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { FormGroup, FormControl, Validators, FormsModule, FormBuilder } from '@angular/forms';
 import { defineLocale, BsLocaleService, ptBrLocale} from 'ngx-bootstrap';
 import { templateJitUrl } from '@angular/compiler';
+import { ToastrService } from 'ngx-toastr';
 defineLocale('pt-br',ptBrLocale);
 
 @Component({
@@ -16,6 +17,7 @@ defineLocale('pt-br',ptBrLocale);
 })
 export class EventosComponent implements OnInit {
   eventosFiltrados: Evento[];
+  titulo= 'Eventos';
   eventos: Evento[];
   evento: Evento;
   modoSalvar='post';
@@ -31,7 +33,8 @@ _filtroLista = '';
     private eventoservice: EventoService,
     private modalService: BsModalService,
     private fb: FormBuilder,
-    private localeService: BsLocaleService
+    private localeService: BsLocaleService,
+    private  toastr: ToastrService
     ) {
       this.localeService.use('pt-br');
     }
@@ -81,6 +84,7 @@ openModal(template: any)
 
   excluirEvento(evento: Evento, template: any) {
     this.openModal(template);
+    
     this.evento = evento;
     this.bodyDeletarEvento = `Tem certeza que deseja excluir o Evento: ${evento.tema}, Código: ${evento.id}`;
   }
@@ -90,7 +94,9 @@ openModal(template: any)
       () => {
         template.hide();
         this.getEventos();
+        this.toastr.success('Deletado com Sucesso');
       }, error => {
+        this.toastr.error('Erro ao Deletar');
         console.log(error);
       }
     );
@@ -105,7 +111,9 @@ openModal(template: any)
             console.log(novoEvento);
             template.hide();
             this.getEventos();
+            this.toastr.success('Inserido com Sucesso!');
           }, error => {
+            this.toastr.error(`Erro ao Inserir: ${error}`);
             console.log(error);
           }
         );
@@ -116,7 +124,9 @@ openModal(template: any)
             console.log(novoEvento);
             template.hide();
             this.getEventos();
+            this.toastr.success('Editado com Sucesso!');
           }, error => {
+            this.toastr.error(`Erro ao Editar:  ${error} `);
             console.log(error);
           }
         );
@@ -145,7 +155,7 @@ getEventos(){
     this.eventosFiltrados = this.eventos;
     console.log(_eventos);
   }, error => {
-    console.log(error);
+      this.toastr.error(`Erro ao tentar Carregar Eventos:  ${error} `);
     });
 };
 }

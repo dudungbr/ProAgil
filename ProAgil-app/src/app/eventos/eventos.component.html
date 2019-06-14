@@ -1,4 +1,4 @@
-
+<app-titulo [titulo]="titulo"></app-titulo>
 <div class="d-flex">
     
     
@@ -72,7 +72,7 @@
     
 </tr>
 </tbody>
-<tfoot *ngIf="!eventos.length">
+<tfoot *ngIf="!eventos">
     <tr>
         <td colspan="7" class="text-center">
             <h5>
@@ -126,6 +126,8 @@ role="dialog" aria-labelledby="dialog-sizes-name1">
                         <label>Data e Hora</label>
                         <input type="text" class="form-control"
                         bsDatepicker
+                        value="{{dataEvento | DateTimeFormatPipe}}"
+                        [(ngModel)]="dataEvento"
                         [bsConfig]="{dateInputFormat : 'DD/MM/YYY HH:MM a'}"
                         [ngClass]="{'is-invalid': registerForm.get('dataEvento').errors &&  registerForm.get('dataEvento').touched}"
                         formControlName="dataEvento">
