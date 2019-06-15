@@ -16,17 +16,25 @@ import { ContatosComponent } from './contatos/contatos.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PalestrantesComponent } from './palestrantes/palestrantes.component';
 import { TituloComponent } from './_shared/titulo/titulo.component';
+import { UserComponent } from './user/user.component';
+import { LoginComponent } from './user/login/login.component';
+import { RegistrationComponent } from './user/registration/registration.component';
+
+
 
 
 @NgModule({
    declarations: [
       AppComponent,
-      EventosComponent,
       NavComponent,
-      ContatosComponent,
-      DashboardComponent,
-      TituloComponent,
+      EventosComponent,
       PalestrantesComponent,
+      DashboardComponent,
+      ContatosComponent,
+      TituloComponent,
+      UserComponent,
+      LoginComponent,
+      RegistrationComponent,
       DateTimeFormatPipePipe
    ],
    imports: [
@@ -37,7 +45,7 @@ import { TituloComponent } from './_shared/titulo/titulo.component';
       ModalModule.forRoot(),
       BrowserAnimationsModule,
       ToastrModule.forRoot({
-         timeOut: 10000,
+         timeOut: 2000,
          positionClass: 'toast-top-right',
          preventDuplicates: true,
       }),
